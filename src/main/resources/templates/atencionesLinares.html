@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Getting Started: Serving Web Content</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+				<div class="col-6 col-sm-4">
+		<h1>Lista de atenciones</h1>
+		<form action="/guardar" method="post" th:object="${atencion}">
+			<div class="form-group">
+				<label for="inputNum">Fecha</label>
+				<input type="number" th:field="*{num_atencion}"
+					   class="form-control" id="inputNum" placeholder="Numero de atencion">
+			</div>
+			<div class="form-group">
+				<label for="inputCod">Fecha</label>
+				<input type="date" th:field="*{fecha}"
+					class="form-control" id="inputCod" placeholder="Fecha">
+			</div>
+			<div class="form-group">
+				<label for="inputNom">Nombre del paciente</label>
+				<input type="text" th:field="*{nom_paciente}"
+					class="form-control" id="inputNom"
+					placeholder="Nombre del paciente">
+			</div>
+				<div class="form-group">
+					<label for="inputCat">Tipo</label>
+					<select id="inputCat" th:field="*{cod_tipo_atencion}" class="form-control" >
+						<option value="0">Seleccione...</option>
+						<option th:each="c : ${listaTipos}" th:value="${c.cod_tipo_atencion}" th:text="${c.nom_tipo_atencion}">Seleccione...</option>
+					</select>
+				</div>
+			<button type="submit" class="btn btn-primary">Registrar</button>
+		</form>
+		<div th:class="${cssmensaje}" th:text="${mensaje}">CL1 DAW1</div>
+	</div>
+	<div class="col-6 col-sm-7">
+				<h3></h3>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>N°</th>
+							<th>Paciente</th>
+							<th>Tipo de atencion</th>
+							<th>Fecha</th>
+							<th>Precio</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="t : ${listaAtenciones}">
+							<th scope="row" th:text="${t.num_atencion}" >1</th>
+							<th th:text="${t.nom_paciente}">xx</th>
+							<td th:text="${t.tipo.nom_tipo_atencion}">xx</td>
+							<td th:text="${t.fecha.toString()}">xx</td>
+							<td th:text="${t.tipo.precio}">xx</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" ></script>
+</html>
